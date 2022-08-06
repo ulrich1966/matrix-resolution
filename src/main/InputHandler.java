@@ -25,24 +25,26 @@ public class InputHandler {
 		String input = scanner.nextLine();
 
 		if (input.contains(",")) {
+			// Wenn die Eingabezeile ein Komma enthaelt wird versucht die Matrix anhand der
+			// (hoffentlich kompletten) Zeile zu erstellen.
 			String[] split = input.split(",");
 			for (String val : split) {
 				readAndCheck(val);
 				counter++;
 			}
 			return adMatirx;
+		} else {
+			// Wenn die Eingabezeile KEIN Komma enthaelt wird zur Eingabe der jeweils
+			// naechsten Zeile aufgefordert.
+			readAndCheck(input);
+			for (; counter < size;) {
+				System.out.print("Gebe die " + (counter + 1) + ". Folge von " + size + " Ziffern 0 und 1 ein: ");
+				input = scanner.nextLine();
+				readAndCheck(input);
+				counter++;
+			}
+			return adMatirx;
 		}
-
-		readAndCheck(null);
-
-		for (; counter < size;) {
-			System.out.print("Gebe die " + (counter + 1) + ". Folge von " + size + " Ziffern 0 und 1 ein: ");
-			readAndCheck(null);
-			counter++;
-		}
-
-		// iterateMatrix(adMatirx);
-		return adMatirx;
 	}
 
 	/**
@@ -54,6 +56,11 @@ public class InputHandler {
 	private void readAndCheck(String input) {
 		char[] charArray = input.toCharArray();
 		int i = 0;
+
+		if (null == input || input.isEmpty()) {
+			System.out.println("input hat keinen Inhalt");
+			System.exit(1);
+		}
 
 		for (char c : charArray) {
 			String is = String.format("%s", c).trim();
