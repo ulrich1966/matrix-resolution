@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 
- * @author kevin bobzien
+ * @author Kevin Bobzien
  *
  */
 public class Start {
@@ -15,11 +15,11 @@ public class Start {
 	public static final boolean DEBUG = false;
 
 	/**
-	 * Einstiegspunkt des Programms. Zeigt zunaechst die Arrays der ausgangs Matrix
-	 * und der transponierten Matrix, so wie das der Matrixmultiplikation. Erstellt
+	 * Einstiegspunkt des Programms. Zeigt zunaechst die Arrays der Ausgangsmatrix
+	 * und der transponierten Matrix, so wie das der Nout-Matrix. Erstellt
 	 * eine Instanz des {@link CrissCross} - Objekt und uebernimmt die Steuerung der
-	 * Durchlaeufe des AD Matrix - Arrays und präsentiert die Loesungsmengen in der
-	 * Konsole
+	 * Durchlaeufe der AD Matrix - Arrays und praesentiert die Loesungsmengen in der
+	 * Konsole.
 	 * 
 	 * @param args
 	 */

@@ -3,9 +3,9 @@ package main;
 import java.util.Scanner;
 
 /**
- * Steuerung und Prüfung der Eingabe der Matrix-Werte
+ * Steuerung und Prüfung der Eingabe der Matrix-Werte.
  * 
- * @author kevin bobzien
+ * @author Kevin Bobzien
  *
  */
 public class InputHandler {
@@ -15,18 +15,19 @@ public class InputHandler {
 	private int counter = 0;
 
 	/**
-	 * Einstieg Einlesen der Konsoleneigabe und Steuerung der Eingabe fuer
-	 * Einzeleingabe der Matrix-Zeilen und kommaseparierter eingabe einer kompletten
-	 * Matrix in einer Zeile
+	 * Einstieg: Einlesen der Konsoleneingabe und Steuerung der Eingabe fuer
+	 * Einzeleingabe der Matrix-Zeilen und kommaseparierter Eingabe einer kompletten
+	 * Matrix in einer Zeile.
 	 */
 	public int[][] input() {
 
-		System.out.print("Gebe eine beliebg lange (aber micht all zu lange) Folge\nan 0 und 1 ein: ");
+		System.out.print("Gebe eine beliebig lange Folge\nan 0 und 1 ein (Zeile einer Matrix) an"
+				+ "\noder eine mit Kommatas getrennte gleichbleibend große Zahlenreihe \naus 0 und 1: ");
 		String input = scanner.nextLine();
 
 		if (input.contains(",")) {
 			// Wenn die Eingabezeile ein Komma enthaelt wird versucht die Matrix anhand der
-			// (hoffentlich kompletten) Zeile zu erstellen.
+			// Zeile zu erstellen.
 			String[] split = input.split(",");
 			for (String val : split) {
 				nextLine(val);

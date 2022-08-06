@@ -3,6 +3,12 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author Kevin Bobzien
+ *
+ */
+
 public class MatrixModeler {
 	private int[][] sourceMatrix = null;
 	private int[][] transMatrix = null;
@@ -21,8 +27,8 @@ public class MatrixModeler {
 
 	/**
 	 * Bietet eine oeffentliche Aufrufmoeglichkeit der gekapselten Model-Funktion
-	 * (matrixModeling). Setzt die Klassen-Variablen der Ausgangs-Matrix und die
-	 * ihre Dimensionen. Deligiert an die private Model-Funktion (matirxModeling())
+	 * (matrixModeling). Setzt die Klassen-Variablen der Ausgangsmatrix und
+	 * ihre Dimensionen. Delegiert an die private Model-Funktion (matrixModeling())
 	 * weiter.
 	 * 
 	 * @param matrix
@@ -37,10 +43,10 @@ public class MatrixModeler {
 	}
 
 	/**
-	 * Erzeugt eine neue Instanz von int Array fuer die modifierte Matrix
-	 * (modMatrix). Durchlaeuft die Ausgansmatrix (sourceMatrix) und weist den
+	 * Erzeugt eine neue Instanz von int Array fuer die modifizierte Matrix
+	 * (modMatrix). Durchlaeuft die Ausgangsmatrix (sourceMatrix) und weist den
 	 * Zeilen-Wert der modifizieten Matrix als Spaltenwerte zu, so dass aus Zeilen
-	 * Spalten werden. Gibt die gefuellte mod. Matrix zurueck
+	 * Spalten werden. Gibt die gefuellte modifzierte Matrix zurueck.
 	 * 
 	 * @return
 	 * @throws RuntimeException
@@ -58,12 +64,11 @@ public class MatrixModeler {
 				transMatrix[y][i] = sourceMatrix[i][y];
 			}
 		}
-		// createLines();
 		return transMatrix;
 	}
 
 	/**
-	 * Multipliziert zwei Matrixen (die sourceMatrix mit der modMatrix). und gibt
+	 * Multipliziert zwei Matrizen (die sourceMatrix mit der modMatrix) und gibt
 	 * das Ergebnis als neue Matrix zurueck.
 	 * 
 	 * @return
@@ -86,7 +91,6 @@ public class MatrixModeler {
 				if (Start.DEBUG)
 					System.out.println("\n-> B Spalte: " + (j + 1) + "\n");
 				for (int y = 0; y < transMatrix[i].length; y++) {
-					// if(Start.DEBUG) System.out.print("i="+i+" j="+j+" y="+y+"\t");
 					a = sourceMatrix[i][y];
 					b = transMatrix[y][j];
 					c = a * b;
@@ -104,14 +108,12 @@ public class MatrixModeler {
 			if (Start.DEBUG)
 				System.out.println();
 		}
-		// if (Start.DEBUG)
-		// iterateMatrix(resultMatrix);
 		return this.resultMatrix;
 	}
 
 	/**
-	 * Zur uebersichtlieren Ausgabe werden die Matirx Arrays in
-	 * {@link java.uil.ArrayLists} ueberfuehrt
+	 * Zur uebersichtlieren Ausgabe werden die Matrix-Arrays in
+	 * {@link java.uil.ArrayLists} ueberfuehrt.
 	 */
 	public void createLines() {
 		this.sourceLines = new ArrayList<String>();
@@ -174,7 +176,7 @@ public class MatrixModeler {
 	}
 
 	/**
-	 * Getter und Setter der Klassenvariablen
+	 * Getter und Setter der Klassenvariablen.
 	 */
 
 	public int[][] getResultMatrix() {

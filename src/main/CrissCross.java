@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 
+ * @author Kevin Bobzien
+ *
+ */
+
 public class CrissCross {
 	private int[][] ad;
 	private int[][] adt;
@@ -11,7 +17,7 @@ public class CrissCross {
 	private Integer currentSolutionItem;
 
 	/**
-	 * Konstruktor, der die die zu verarbeitenden Arrays übernimmt, die die AD und
+	 * Konstruktor, der die zu verarbeitenden Arrays uebernimmt, die AD und
 	 * ADT abbilden.
 	 * 
 	 * @param ad
@@ -25,7 +31,7 @@ public class CrissCross {
 
 	/**
 	 * Durlaeft das Array der AD Matrix und ruft ggf. die Methode zum Durchlaufen
-	 * das ADT Matrix - Array.
+	 * der ADT Matrix - Array auf.
 	 * 
 	 * @param adRow
 	 * @param adCol
@@ -48,7 +54,7 @@ public class CrissCross {
 	}
 
 	/**
-	 * Durlaeuft das Array fuer die ADT Matrix. Prueft auf auf 0 und ermittelt, die
+	 * Durlaeuft das Array fuer die ADT Matrix. Prueft auf 0 und ermittelt, die
 	 * Selbstreferenz. Ist die aktuelle Spalte nicht 0, keine Selbstreferenz und
 	 * nicht bereits hinterlegt, wird der Wert in einer ArrayList fuer die
 	 * Loesungsmenge gespeichert.
@@ -88,7 +94,7 @@ public class CrissCross {
 	}
 
 	/**
-	 * Gibt die Matrixen AD und ADT auf der Konsole aus.
+	 * Gibt die Matrizen AD und ADT auf der Konsole aus.
 	 * 
 	 * @param matrix
 	 */
