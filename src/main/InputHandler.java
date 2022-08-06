@@ -29,22 +29,31 @@ public class InputHandler {
 			// (hoffentlich kompletten) Zeile zu erstellen.
 			String[] split = input.split(",");
 			for (String val : split) {
-				readAndCheck(val);
-				counter++;
+				nextLine(val);
 			}
 			return adMatirx;
 		} else {
 			// Wenn die Eingabezeile KEIN Komma enthaelt wird zur Eingabe der jeweils
 			// naechsten Zeile aufgefordert.
-			readAndCheck(input);
+			nextLine(input);
 			for (; counter < size;) {
 				System.out.print("Gebe die " + (counter + 1) + ". Folge von " + size + " Ziffern 0 und 1 ein: ");
 				input = scanner.nextLine();
-				readAndCheck(input);
-				counter++;
+				nextLine(input);
 			}
 			return adMatirx;
 		}
+	}
+
+	/**
+	 * Stoeesst das Verarbeiten der aktuellen Zeile an und erhoeht den
+	 * Zeilen-Zaehler;
+	 * 
+	 * @param val
+	 */
+	private void nextLine(String val) {
+		readAndCheck(val);
+		counter++;
 	}
 
 	/**
