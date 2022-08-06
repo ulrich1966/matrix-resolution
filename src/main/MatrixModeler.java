@@ -10,13 +10,13 @@ import java.util.List;
  */
 
 public class MatrixModeler {
-	private int[][] sourceMatrix = null;
-	private int[][] transMatrix = null;
-	private int[][] resultMatrix = null;
-	private static int[] dimensions = null;
-	private List<String> sourceLines = null;
-	private List<String> modLines = null;
-	private List<String> resultLines = null;
+	private int[][] adMatrix = null;
+	private int[][] adtMatrix = null;
+	private int[][] nOutMatrix = null;
+	private int[] dimensions = null;
+	private List<String> adLines = null;
+	private List<String> adtLines = null;
+	private List<String> nOutLines = null;
 
 	/**
 	 * Default Konstruktor
@@ -27,8 +27,8 @@ public class MatrixModeler {
 
 	/**
 	 * Bietet eine oeffentliche Aufrufmoeglichkeit der gekapselten Model-Funktion
-	 * (matrixModeling). Setzt die Klassen-Variablen der Ausgangsmatrix und
-	 * ihre Dimensionen. Delegiert an die private Model-Funktion (matrixModeling())
+	 * (matrixModeling). Setzt die Klassen-Variablen der Ausgangsmatrix und ihre
+	 * Dimensionen. Delegiert an die private Model-Funktion (matrixModeling())
 	 * weiter.
 	 * 
 	 * @param matrix
@@ -36,69 +36,69 @@ public class MatrixModeler {
 	 * @return
 	 * @throws RuntimeException
 	 */
-	public int[][] matirxModeling(int[][] matrix, int[] dimensions) throws RuntimeException {
-		this.sourceMatrix = matrix;
-		MatrixModeler.dimensions = dimensions;
+	public int[][] matrixModeling(int[][] matrix, int[] dimensions) throws RuntimeException {
+		this.adMatrix = matrix;
+		this.dimensions = dimensions;
 		return matrixModeling();
 	}
 
 	/**
-	 * Erzeugt eine neue Instanz von int Array fuer die modifizierte Matrix
-	 * (modMatrix). Durchlaeuft die Ausgangsmatrix (sourceMatrix) und weist den
-	 * Zeilen-Wert der modifizieten Matrix als Spaltenwerte zu, so dass aus Zeilen
-	 * Spalten werden. Gibt die gefuellte modifzierte Matrix zurueck.
+	 * Erzeugt eine neue Instanz von int Array fuer die Zielmatrix (adtMatrix).
+	 * Durchlaeuft die Ausgangsmatrix (adMatrix) und weist den Zeilen-Wert der
+	 * adtMatrix als Spaltenwerte zu, so dass aus Zeilen Spalten werden. Gibt die
+	 * gefuellte adtMatrix Matrix zurueck.
 	 * 
 	 * @return
 	 * @throws RuntimeException
 	 */
 	private int[][] matrixModeling() throws RuntimeException {
 
-		if (this.sourceMatrix == null || MatrixModeler.dimensions == null) {
+		if (null == this.adMatrix || null == this.dimensions) {
 			throw new RuntimeException("Es gibt kein Matrix-Array oder die Dimensionen des Arrays wurden nicht angegeben");
 		}
 
-		transMatrix = new int[MatrixModeler.dimensions[0]][MatrixModeler.dimensions[1]];
+		adtMatrix = new int[this.dimensions[0]][this.dimensions[1]];
 
-		for (int i = 0; i < sourceMatrix.length; i++) {
-			for (int y = 0; y < sourceMatrix[i].length; y++) {
-				transMatrix[y][i] = sourceMatrix[i][y];
+		for (int i = 0; i < adMatrix.length; i++) {
+			for (int y = 0; y < adMatrix[i].length; y++) {
+				adtMatrix[y][i] = adMatrix[i][y];
 			}
 		}
-		return transMatrix;
+		return adtMatrix;
 	}
 
 	/**
-	 * Multipliziert zwei Matrizen (die sourceMatrix mit der modMatrix) und gibt
-	 * das Ergebnis als neue Matrix zurueck.
+	 * Multipliziert zwei Matrizen (die adMatrix mit der adtMatrix) und gibt das
+	 * Ergebnis als neue Matrix (nOutMatrix) zurueck.
 	 * 
 	 * @return
 	 * @throws RuntimeException
 	 */
 	public int[][] matrixMultiplication() throws RuntimeException {
-		this.resultMatrix = new int[MatrixModeler.dimensions[0]][MatrixModeler.dimensions[1]];
+		this.nOutMatrix = new int[this.dimensions[0]][this.dimensions[1]];
 		int a = 0;
 		int b = 0;
 		int c = 0;
 		int temp = 0;
-		for (int i = 0; i < sourceMatrix.length; i++) {
+		for (int i = 0; i < adMatrix.length; i++) {
 			if (Start.DEBUG) {
 				System.out.println("-----------------------------------------");
 				System.out.println("\tA Zeile: " + (i + 1));
 				System.out.println("    A\t\t    B\n");
 				printMatrix();
 			}
-			for (int j = 0; j < sourceMatrix[i].length; j++) {
+			for (int j = 0; j < adMatrix[i].length; j++) {
 				if (Start.DEBUG)
 					System.out.println("\n-> B Spalte: " + (j + 1) + "\n");
-				for (int y = 0; y < transMatrix[i].length; y++) {
-					a = sourceMatrix[i][y];
-					b = transMatrix[y][j];
+				for (int y = 0; y < adtMatrix[i].length; y++) {
+					a = adMatrix[i][y];
+					b = adtMatrix[y][j];
 					c = a * b;
 					temp = c + temp;
 					if (Start.DEBUG)
 						System.out.println(" " + a + " * " + b + " = " + c);
 				}
-				this.resultMatrix[i][j] = temp;
+				this.nOutMatrix[i][j] = temp;
 				if (Start.DEBUG) {
 					System.out.println("---------");
 					System.out.println(" =       " + temp);
@@ -108,7 +108,7 @@ public class MatrixModeler {
 			if (Start.DEBUG)
 				System.out.println();
 		}
-		return this.resultMatrix;
+		return this.nOutMatrix;
 	}
 
 	/**
@@ -116,45 +116,33 @@ public class MatrixModeler {
 	 * {@link java.uil.ArrayLists} ueberfuehrt.
 	 */
 	public void createLines() {
-		this.sourceLines = new ArrayList<String>();
-		this.modLines = new ArrayList<String>();
-		this.resultLines = new ArrayList<String>();
-		for (int i = 0; i < sourceMatrix.length; i++) {
-			String sourceLine = "";
-			for (int j = 0; j < sourceMatrix[i].length; j++) {
-				sourceLine = String.format("%s %d", sourceLine, sourceMatrix[i][j]);
+		this.adLines = new ArrayList<>();
+		this.adtLines = new ArrayList<>();
+		this.nOutLines = new ArrayList<>();
+		
+		for (int i = 0; i < adMatrix.length; i++) {
+			String adLine = "";
+			for (int j = 0; j < adMatrix[i].length; j++) {
+				adLine = String.format("%s %d", adLine, adMatrix[i][j]);
 			}
-			this.sourceLines.add(sourceLine);
+			this.adLines.add(adLine);
 		}
-		for (int i = 0; i < transMatrix.length; i++) {
+		for (int i = 0; i < adtMatrix.length; i++) {
 			String modLine = "";
-			for (int j = 0; j < transMatrix[i].length; j++) {
-				modLine = String.format("%s %d", modLine, transMatrix[i][j]);
+			for (int j = 0; j < adtMatrix[i].length; j++) {
+				modLine = String.format("%s %d", modLine, adtMatrix[i][j]);
 			}
-			this.modLines.add(modLine);
+			this.adtLines.add(modLine);
 		}
-		for (int i = 0; i < resultMatrix.length; i++) {
+		for (int i = 0; i < nOutMatrix.length; i++) {
 			String resultLine = "";
-			for (int j = 0; j < resultMatrix[i].length; j++) {
-				resultLine = String.format("%s %d", resultLine, resultMatrix[i][j]);
+			for (int j = 0; j < nOutMatrix[i].length; j++) {
+				resultLine = String.format("%s %d", resultLine, nOutMatrix[i][j]);
 			}
-			this.resultLines.add(resultLine);
+			this.nOutLines.add(resultLine);
 		}
 	}
-
-	/**
-	 * Iteriert ueber ein Matrix-Array und gibt dessen Werte auf der Konsole aus.
-	 */
-	public void iterateMatrix(int[][] matrix) {
-		for (int i = 0; i < matrix.length; i++) {
-			for (int j = 0; j < matrix[i].length; j++) {
-				System.out.print(matrix[i][j] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println();
-	}
-
+	
 	/**
 	 * Ausgabe / Darstellung der generierten Matrix {@link java.util.ArrayList} -
 	 * Objekte auf der Konsole.
@@ -164,50 +152,70 @@ public class MatrixModeler {
 		System.out.print("\t\t");
 		System.out.print(" ADT");
 		System.out.print("\t\t");
-		System.out.println(" Mpl.");
-		for (int i = 0; i < this.getSourceLines().size(); i++) {
-			System.out.print(this.sourceLines.get(i));
+		System.out.println(" Nout");
+		for (int i = 0; i < this.getAdLines().size(); i++) {
+			System.out.print(this.adLines.get(i));
 			System.out.print("\t");
-			System.out.print(this.modLines.get(i));
+			System.out.print(this.adtLines.get(i));
 			System.out.print("\t");
-			System.out.print(this.resultLines.get(i));
+			System.out.print(this.nOutLines.get(i));
 			System.out.println();
 		}
 	}
+	
+	
 
 	/**
 	 * Getter und Setter der Klassenvariablen.
 	 */
 
-	public int[][] getResultMatrix() {
-		return resultMatrix;
+	/**
+	 * @return the adMatrix
+	 */
+	public int[][] getAdMatrix() {
+		return adMatrix;
 	}
 
-	public int[][] getSourceMatrix() {
-		return sourceMatrix;
+	/**
+	 * @return the adtMatrix
+	 */
+	public int[][] getAdtMatrix() {
+		return adtMatrix;
 	}
 
-	public int[][] getTransMatrix() {
-		return transMatrix;
+	/**
+	 * @return the nOutMatrix
+	 */
+	public int[][] getnOutMatrix() {
+		return nOutMatrix;
 	}
 
-	public void setResultMatrix(int[][] resultMatrix) {
-		this.resultMatrix = resultMatrix;
-	}
-
-	public static int[] getDimensions() {
+	/**
+	 * @return the dimensions
+	 */
+	public int[] getDimensions() {
 		return dimensions;
 	}
 
-	public static void setDimensions(int[] dimensions) {
-		MatrixModeler.dimensions = dimensions;
+	/**
+	 * @return the adLines
+	 */
+	public List<String> getAdLines() {
+		return adLines;
 	}
 
-	public List<String> getSourceLines() {
-		return sourceLines;
+
+	/**
+	 * @return the adtLines
+	 */
+	public List<String> getAdtLines() {
+		return adtLines;
 	}
 
-	public List<String> getModLines() {
-		return modLines;
+	/**
+	 * @return the nOutLines
+	 */
+	public List<String> getnOutLines() {
+		return nOutLines;
 	}
 }

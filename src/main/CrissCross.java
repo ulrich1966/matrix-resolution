@@ -11,8 +11,8 @@ import java.util.List;
  */
 
 public class CrissCross {
-	private int[][] ad;
-	private int[][] adt;
+	private int[][] adMatrix;
+	private int[][] adtMatrix;
 	private List<Integer> solutionSet = new ArrayList<>();
 	private Integer currentSolutionItem;
 
@@ -25,28 +25,28 @@ public class CrissCross {
 	 */
 	public CrissCross(int[][] ad, int[][] adt) {
 		super();
-		this.ad = ad;
-		this.adt = adt;
+		this.adMatrix = ad;
+		this.adtMatrix = adt;
 	}
 
 	/**
-	 * Durlaeft das Array der AD Matrix und ruft ggf. die Methode zum Durchlaufen
+	 * Durchlaeuft das Array der AD Matrix und ruft ggf. die Methode zum Durchlaufen
 	 * der ADT Matrix - Array auf.
 	 * 
 	 * @param adRow
 	 * @param adCol
 	 */
 	public void walkThroughAd(int adRow, int adCol) {
-		for (; adCol < ad[adRow].length; adCol++) {
+		for (; adCol < adMatrix[adRow].length; adCol++) {
 			if(Start.DEBUG) 
 				System.out.println("-----------------------------------------");
-			if (ad[adRow][adCol] == 1) {
+			if (adMatrix[adRow][adCol] == 1) {
 				if(Start.DEBUG) 
-					System.out.println(String.format("AD: Row %d: Col %d - Wert: %d prüfen", adRow + 1, adCol + 1, ad[adRow][adCol]));
+					System.out.println(String.format("AD: Row %d: Col %d - Wert: %d prüfen", adRow + 1, adCol + 1, adMatrix[adRow][adCol]));
 				walkThroughAdT(adRow, adCol);
 			} else {
 				if(Start.DEBUG) 
-					System.out.println(String.format("AD: Row %d: Col %d - Wert: %d skiped", adRow + 1, adCol + 1, ad[adRow][adCol]));
+					System.out.println(String.format("AD: Row %d: Col %d - Wert: %d skiped", adRow + 1, adCol + 1, adMatrix[adRow][adCol]));
 			}
 		}
 		if(Start.DEBUG) 
@@ -66,16 +66,17 @@ public class CrissCross {
 		int adtCol = 0;
 		boolean ref = false;
 
-		for (; adtCol < adt[adCol].length; adtCol++) {
+		for (; adtCol < adtMatrix[adCol].length; adtCol++) {
 			if(Start.DEBUG)
 				System.out.println("------------------ " + (adtCol + 1) + " --------------------");
-			if (adt[adCol][adtCol] == 0) {
+			if (adtMatrix[adCol][adtCol] == 0) {
 				if(Start.DEBUG)
-					System.out.println("\tADT: " + (adtCol + 1) + " = " + adt[adCol][adtCol] + " skipted 0");
+					System.out.println("\tADT: " + (adtCol + 1) + " = " + adtMatrix[adCol][adtCol] + " skipted 0");
 				continue;
 			}
 			currentSolutionItem = (adtCol + 1);
 			if (!solutionSet.contains(currentSolutionItem)) {
+				// Selbstreferenz finden und bei 'true' in der naechsten Runde nicht mehr durchlaufen
 				if (!ref && isSelfReference(adRow, adCol, adtCol)) {
 					ref = true;
 					if(Start.DEBUG)
@@ -125,8 +126,8 @@ public class CrissCross {
 	private boolean isSelfReference(int adRow, int adCol, int adtCol) {
 		boolean isRef = false;
 		int adtRow = adCol;
-		int adVal = ad[adRow][adCol];
-		int adtVal = adt[adtRow][adtCol];
+		int adVal = adMatrix[adRow][adCol];
+		int adtVal = adtMatrix[adtRow][adtCol];
 
 		if(Start.DEBUG)
 			System.out.println("\tad:\t" + adRow + ":" + adCol + " = " + adVal + "\n\tadt:\t" + adtRow + ":" + adRow + " = " + adtVal);
@@ -156,11 +157,11 @@ public class CrissCross {
 	}
 
 	public int[][] getAd() {
-		return ad;
+		return adMatrix;
 	}
 
 	public int[][] getAdt() {
-		return adt;
+		return adtMatrix;
 	}
 
 	public List<Integer> getSolutionSet() {

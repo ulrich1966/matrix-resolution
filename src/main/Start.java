@@ -26,20 +26,19 @@ public class Start {
 	public static void main(String[] args) {
 		InputHandler inputHandler = new InputHandler();
 		int[][] adMatrix = inputHandler.input();
-		System.out.println();
 
 		int length = adMatrix[0].length;
 		int[] dimensions = { length, length };
 
 		modeler = new MatrixModeler();
-		modeler.matirxModeling(adMatrix, dimensions);
+		modeler.matrixModeling(adMatrix, dimensions);
 		modeler.matrixMultiplication();
 		modeler.createLines();
+		System.out.println();
 		modeler.printMatrix();
-
 		System.out.println();
 
-		CrissCross crissCross = new CrissCross(modeler.getSourceMatrix(), modeler.getTransMatrix());
+		CrissCross crissCross = new CrissCross(modeler.getAdMatrix(), modeler.getnOutMatrix());
 		int count = crissCross.getAd().length;
 
 		StringBuilder sb = new StringBuilder();
